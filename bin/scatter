@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'scatter'
+require 'optparse'
+
+class ScatterCLI
+  def self.run(args)
+    options = {}
+    OptionParser.new do |opts|
+      opts.banner = "Usage: scatter command [options]"
+    end.parse!
+    raise 'No command given' if ARGV.empty?
+    
+    command_name = ARGV.shift.capitalize
+    
+    klass = eval("Scatter::Commands::#{command_name}")
+    command = klass.new(*ARGV)
+    command.execute!
+  end
+end
+
+ScatterCLI.run(ARGV)
