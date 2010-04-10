@@ -1,9 +1,9 @@
 module Scatter
   class Node
-    attr_reader :name
+    attr_reader :remote, :name
     
-    def initialize(name, username, hostname)
-      @name, @username, @hostname = name, username, hostname
+    def initialize(remote, name, username, hostname)
+      @remote, @name, @username, @hostname = remote, name, username, hostname
     end
     
     def list
@@ -16,16 +16,14 @@ module Scatter
       system "ssh #{@username}@#{@hostname} scatter receive /tmp/#{File.basename(gemfile)}"
     end
     
-    def self.decode_from_config(name, config)
-      new(name, config['username'], config['hostname'])
+    def self.decode_from_config(remote, name, config)
+      new(remote, name, config['username'], config['hostname'])
     end
     
-    def self.encode_for_config
+    def encode_for_config
       {
-        @name => {
-          'username' => @username,
-          'hostname' => @hostname
-        }
+        'username' => @username,
+        'hostname' => @hostname
       }
     end
   end

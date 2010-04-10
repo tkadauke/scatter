@@ -2,8 +2,9 @@ module Scatter
   class Remote
     attr_reader :name, :nodes
     
-    def initialize(name, nodes)
-      @name, @nodes = name, nodes
+    def initialize(name)
+      @name = name
+      @nodes = []
     end
     
     def push(gemfile)
@@ -12,16 +13,20 @@ module Scatter
       end
     end
     
-    def self.decode_from_config(name, config)
-      nodes = config['nodes'].collect { |nodename, config| Node.decode_from_config(nodename, config) } rescue []
-      new(name, nodes)
+    def find_node(name)
+      nodes.find { |node| node.name == name }
     end
     
-    def self.encode_for_config
+    def self.decode_from_config(name, config)
+      remote = new(name)
+      nodes = config['nodes'].collect { |nodename, config| Node.decode_from_config(remote, nodename, config) } rescue []
+      remote.nodes.concat(nodes)
+      remote
+    end
+    
+    def encode_for_config
       {
-        @name => {
-          'nodes' => @nodes.collect { |node| node.encode_for_config }
-        }
+        'nodes' => @nodes.inject({}) { |hash, node| hash[node.name] = node.encode_for_config; hash }
       }
     end
   end

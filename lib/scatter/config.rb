@@ -2,7 +2,7 @@ module Scatter
   class Config
     def self.remotes
       load!
-      @remotes ||= @config['remotes'].collect { |name, config| Remote.decode_from_config(name, config) }
+      @remotes ||= (@config['remotes'] || {}).collect { |name, config| Scatter::Remote.decode_from_config(name, config) }
     end
     
     def self.nodes
@@ -11,9 +11,16 @@ module Scatter
     
     def self.load!
       @loaded ||= begin
-        @config = YAML.load(File.read("#{ENV['HOME']}/.scatter/config"))
+        @config = YAML.load(File.read(file_name)) rescue {}
         true
       end
+    end
+    
+    def self.save!
+      config = {
+        'remotes' => self.remotes.inject({}) { |hash, remote| hash[remote.name] = remote.encode_for_config; hash }
+      }
+      File.open(file_name, 'w') { |file| file.puts config.to_yaml }
     end
     
     def self.find_remote(name)
@@ -25,7 +32,16 @@ module Scatter
     end
     
     def self.find_destination(name)
-      (remotes + nodes).find { |dest| dest.name == name }
+      if name =~ /\//
+        remote, node = *(name.split('/'))
+        find_remote(remote).find_node(node)
+      else
+        (remotes + nodes).find { |dest| dest.name == name }
+      end
+    end
+    
+    def self.file_name
+      "#{ENV['HOME']}/.scatter/config"
     end
   end
 end

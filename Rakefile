@@ -1,3 +1,5 @@
 require 'gemmer'
 
-gemmer 'scatter'
+Gemmer::Tasks.new('scatter') do |t|
+  t.release_via :rubygems
+end
