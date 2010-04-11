@@ -62,7 +62,8 @@ module Scatter
     def find_destination(name)
       if name =~ /\//
         remote, node = *(name.split('/'))
-        find_remote(remote).find_node(node)
+        remote_object = find_remote(remote)
+        remote_object.find_node(node) if remote_object
       else
         (remotes + nodes).find { |dest| dest.name == name }
       end
