@@ -8,7 +8,8 @@ module Scatter
       end
       
       def execute!
-        node.list
+        gemlist = node.list
+        puts gemlist.gem_output
       end
       
       def node

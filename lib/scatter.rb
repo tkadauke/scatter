@@ -17,6 +17,8 @@ require File.dirname(__FILE__) + '/scatter/config'
 require File.dirname(__FILE__) + '/scatter/logger'
 require File.dirname(__FILE__) + '/scatter/node'
 require File.dirname(__FILE__) + '/scatter/remote'
+require File.dirname(__FILE__) + '/scatter/gemlist'
+require File.dirname(__FILE__) + '/scatter/shell'
 
 module Scatter
   class CommandLineError< StandardError; end

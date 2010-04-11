@@ -7,13 +7,13 @@ module Scatter
     end
     
     def list
-      system "ssh #{@username}@#{@hostname} gem list"
+      Scatter::Gemlist.parse(Scatter::Shell.capture("ssh #{@username}@#{@hostname} gem list"))
     end
     
     def push(gemfile)
-      system "scp #{gemfile} #{@username}@#{@hostname}:/tmp"
-      system "ssh #{@username}@#{@hostname} sudo gem install /tmp/#{File.basename(gemfile)}"
-      system "ssh #{@username}@#{@hostname} scatter receive /tmp/#{File.basename(gemfile)}"
+      Scatter::Shell.execute "scp #{gemfile} #{@username}@#{@hostname}:/tmp"
+      Scatter::Shell.execute "ssh #{@username}@#{@hostname} sudo gem install /tmp/#{File.basename(gemfile)}"
+      Scatter::Shell.execute "ssh #{@username}@#{@hostname} scatter receive /tmp/#{File.basename(gemfile)}"
     end
     
     def self.decode_from_config(remote, name, config)

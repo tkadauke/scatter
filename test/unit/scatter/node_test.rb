@@ -1,6 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class Scatter::NodeTest < Test::Unit::TestCase
+  def setup
+    Scatter::Shell.clear_log
+  end
+  
   def test_should_create_node
     remote = stub
     node = Scatter::Node.new(remote, 'some_node', 'some_user', 'some_host')
@@ -12,16 +16,16 @@ class Scatter::NodeTest < Test::Unit::TestCase
   
   def test_should_list_gems
     node = Scatter::Node.new(stub, 'some_node', 'some_user', 'some_host')
-    node.expects(:system).with(regexp_matches(/gem list/))
+    Scatter::Shell.expects(:capture).with(regexp_matches(/gem list/))
     node.list
   end
   
   def test_should_push_gem
     node = Scatter::Node.new(stub, 'some_node', 'some_user', 'some_host')
-    node.expects(:system).with(regexp_matches(/scp/))
-    node.expects(:system).with(regexp_matches(/gem install/))
-    node.expects(:system).with(regexp_matches(/scatter receive/))
     node.push('gemfile')
+    [/scp/, /gem install/, /scatter receive/].each_with_index do |rx, i|
+      assert Scatter::Shell.command_log[i] =~ rx
+    end
   end
   
   def test_should_decode_node_from_config

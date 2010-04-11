@@ -10,7 +10,7 @@ module Scatter
       def execute!
         if File.executable?("#{ENV['HOME']}/.scatter/post-receive")
           Scatter::Logger.log("Executing post receive hook")
-          system "#{ENV['HOME']}/.scatter/post-receive #{@gemfile}"
+          Scatter::Shell.execute "#{ENV['HOME']}/.scatter/post-receive #{@gemfile}"
         end
       end
     end
