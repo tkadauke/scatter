@@ -3,13 +3,14 @@ module Scatter
     class List < Scatter::Command
       usage "List all gems installed on node"
       
-      def initialize(node_name)
+      def initialize(out, node_name)
+        super(out)
         @node_name = node_name
       end
       
       def execute!
         gemlist = node.list
-        puts gemlist.gem_output
+        @out.puts gemlist.gem_output
       end
       
       def node

@@ -3,7 +3,8 @@ module Scatter
     class Push < Scatter::Command
       usage "Push gem to remote or node"
       
-      def initialize(gemfile, destination)
+      def initialize(out, gemfile, destination)
+        super(out)
         @gemfile, @destination = gemfile, destination
       end
       

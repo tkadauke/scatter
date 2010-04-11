@@ -22,7 +22,7 @@ module Scatter
         @out.puts "scatter version 0.0.1"
       else
         klass = command_class(command_name)
-        command = klass.new(*args)
+        command = klass.new(@out, *args)
         command.execute!
       end
     end

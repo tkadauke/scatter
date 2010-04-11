@@ -1,8 +1,9 @@
 module Scatter
   module Commands
     class Node
-      class Rm
-        def initialize(remote, node = nil)
+      class Rm < Scatter::SubCommand
+        def initialize(out, remote, node = nil)
+          super(out)
           @remote, @node = remote, node
         end
         

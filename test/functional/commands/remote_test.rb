@@ -7,7 +7,9 @@ class Scatter::Commands::RemoteTest < Test::Unit::TestCase
   end
   
   def test_should_list_remotes
-    # TODO: use StringIO in commands
-    # scatter "remote list"
+    scatter "remote list"
+    assert @out.string =~ /remote1/
+    assert @out.string =~ /remote2/
+    assert @out.string =~ /remote3/
   end
 end

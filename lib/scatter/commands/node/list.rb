@@ -1,8 +1,9 @@
 module Scatter
   module Commands
     class Node
-      class List
-        def initialize(name = nil)
+      class List < Scatter::SubCommand
+        def initialize(out, name = nil)
+          super(out)
           @name = name
         end
         

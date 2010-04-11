@@ -1,8 +1,9 @@
 module Scatter
   module Commands
     class Remote
-      class Rm
-        def initialize(name)
+      class Rm < Scatter::SubCommand
+        def initialize(out, name)
+          super(out)
           @name = name
         end
         

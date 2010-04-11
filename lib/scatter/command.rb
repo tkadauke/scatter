@@ -1,5 +1,9 @@
 module Scatter
   class Command
+    def initialize(out)
+      @out = out
+    end
+    
     class << self
       attr_reader :short_help, :help
       attr_reader :command_classes

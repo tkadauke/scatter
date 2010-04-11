@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/scatter/cli'
 require File.dirname(__FILE__) + '/scatter/command'
 require File.dirname(__FILE__) + '/scatter/super_command'
+require File.dirname(__FILE__) + '/scatter/sub_command'
 require File.dirname(__FILE__) + '/scatter/commands/list'
 require File.dirname(__FILE__) + '/scatter/commands/push'
 require File.dirname(__FILE__) + '/scatter/commands/receive'

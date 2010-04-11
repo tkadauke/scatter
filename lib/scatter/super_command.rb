@@ -9,14 +9,15 @@ module Scatter
       end
     end
     
-    def initialize(*args)
+    def initialize(out, *args)
+      super(out)
       @subcmd = args.shift
       @arguments = args
     end
     
     def execute!
       subcmd_class = eval("#{self.class.name}::#{@subcmd.capitalize}")
-      cmd = subcmd_class.new(*@arguments)
+      cmd = subcmd_class.new(@out, *@arguments)
       cmd.execute!
     rescue ArgumentError
       raise CommandLineError, "Wrong number of mandatory arguments for command #{self.class.command_name} #{@subcmd}"

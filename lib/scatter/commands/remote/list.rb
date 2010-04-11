@@ -1,10 +1,10 @@
 module Scatter
   module Commands
     class Remote
-      class List
+      class List < Scatter::SubCommand
         def execute!
           Scatter::Config.remotes.each do |remote|
-            puts remote.name
+            @out.puts remote.name
           end
         end
       end

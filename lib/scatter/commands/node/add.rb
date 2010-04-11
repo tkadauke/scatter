@@ -1,8 +1,9 @@
 module Scatter
   module Commands
     class Node
-      class Add
-        def initialize(remote_name, node, credentials)
+      class Add < Scatter::SubCommand
+        def initialize(out, remote_name, node, credentials)
+          super(out)
           @remote_name, @node, @credentials = remote_name, node, credentials
         end
         
