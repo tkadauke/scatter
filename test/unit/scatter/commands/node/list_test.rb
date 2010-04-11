@@ -13,6 +13,15 @@ class Scatter::Commands::Node::ListTest < Test::Unit::TestCase
     list.execute!
   end
   
+  def test_should_raise_exception_if_remote_does_not_exist
+    list = Scatter::Commands::Node::List.new('some_remote')
+    Scatter::Config.expects(:find_remote).with('some_remote').returns(nil)
+    
+    assert_raise Scatter::CommandLineError do
+      list.execute!
+    end
+  end
+  
   def test_should_output_node_names
     list = Scatter::Commands::Node::List.new
     Scatter::Config.stubs(:nodes).returns([mock(:name => 'some_node', :remote => mock(:name => 'some_remote'))])

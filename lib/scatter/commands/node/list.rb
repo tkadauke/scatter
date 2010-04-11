@@ -8,7 +8,9 @@ module Scatter
         
         def execute!
           nodes = if @name
-            Scatter::Config.find_remote(@name).nodes
+            remote = Scatter::Config.find_remote(@name)
+            raise CommandLineError, "Unknown remote #{@name}" unless remote
+            remote.nodes
           else
             Scatter::Config.nodes
           end
