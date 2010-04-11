@@ -1,6 +1,6 @@
 module Scatter
   class Node
-    attr_reader :remote, :name
+    attr_reader :remote, :name, :username, :hostname
     
     def initialize(remote, name, username, hostname)
       @remote, @name, @username, @hostname = remote, name, username, hostname

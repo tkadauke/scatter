@@ -1,6 +1,8 @@
 module Scatter
   module Commands
-    class Receive
+    class Receive < Scatter::Command
+      usage "Inform scatter that gem was received; calls post receive hook"
+      
       def initialize(gemfile)
         @gemfile = gemfile
       end

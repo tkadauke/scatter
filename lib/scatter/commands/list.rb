@@ -1,6 +1,8 @@
 module Scatter
   module Commands
-    class List
+    class List < Scatter::Command
+      usage "List all gems installed on node"
+      
       def initialize(node_name)
         @node_name = node_name
       end

@@ -1,0 +1,8 @@
+--- 
+remotes: 
+  remote1: 
+    nodes: {}
+  remote2: 
+    nodes: {}
+  remote3: 
+    nodes: {}
