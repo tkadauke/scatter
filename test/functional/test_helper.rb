@@ -8,9 +8,15 @@ module FunctionalTestHelper
     @cli.run!(Shellwords.shellwords(string))
   end
   
-  def config_file(file_name)
+  def config_file(file_name, options = {})
     Scatter::Config.clear
     Scatter::Config.file_name = file_name
+    
+    unless options[:create] == false
+      unless File.exists?(file_name)
+        File.open(file_name, 'w') { |file| file.puts({}.to_yaml) }
+      end
+    end
   end
 end
 

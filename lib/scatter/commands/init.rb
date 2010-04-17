@@ -10,7 +10,9 @@ module Scatter
       
       def execute!
         FileUtils.mkdir_p File.dirname(Scatter::Config.file_name)
-        Scatter::Config.save!
+        unless File.exists?(Scatter::Config.file_name)
+          File.open(Scatter::Config.file_name, 'w') { |file| file.puts({}.to_yaml) }
+        end
       end
     end
   end
