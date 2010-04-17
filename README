@@ -1,0 +1,79 @@
+Scatter
+=======
+
+scatter is a tool to easily distribute rubygems on your machines. Once configured, you can install a gem to an unlimited amount of machines with just one command.
+
+For communication, scatter uses SSH and SCP. It is recommended that you use SSH Keys on every machine that you want to distribute gems to.
+
+Installation
+------------
+
+  gem install scatter    # you might need sudo rights
+
+Configuration
+-------------
+
+To configure your machine to use scatter, run
+
+  scatter init
+
+Remotes and nodes
+-----------------
+
+In scatter, hosts are called nodes and groups of hosts are called remotes. For web developers, possible remotes would be "staging", "ci" and "production". Every node is associated with a remote. To address a node, either use the node name or the fully qualified name, which is <remote_name>/<node_name>.
+
+To add a remote, use
+
+  scatter remote add <name>
+
+To list remotes, use
+
+  scatter remote list
+
+To remove a remote, use
+
+  scatter remote rm <name>
+
+To add a node, use
+
+  scatter node add <remote> <name> <username>@<hostname>
+
+for example
+
+  scatter node add production app01 me@app01.example.com
+
+To remove a node, use either of
+
+  scatter node rm <node_name>
+  scatter node rm <remote_name>/<node_name>
+  scatter node rm <remote_name> <node_name>
+
+To list a remote's nodes, use
+
+  scatter node list <remote_name>
+
+Distributing gems
+-----------------
+
+To push a gem to a remote or node, use
+
+  scatter push <gem_file_name> <remote_name>
+  scatter push <gem_file_name> <node_name>
+  scatter push <gem_file_name> <remote_name>/<node_name>
+
+For example:
+
+  scatter push activesupport-2.3.5.gem production
+
+Listing gems
+------------
+
+To list the gems on a node, use
+
+  scatter list <node_name>
+  scatter list <remote_name>/<node_name>
+
+Callbacks
+---------
+
+Whenever scatter pushes a gem to a node, it calls the command "scatter receive <gem_file_name>" on the receiving node. This command is used to trigger a post-receive callback, which can be any kind of script. The file name of the callback is $HOME/.scatter/post-receive and must be executable. Scatter supplies the name of the gem as the first parameter to the post-receive script.
