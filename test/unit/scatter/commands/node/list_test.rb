@@ -23,9 +23,8 @@ class Scatter::Commands::Node::ListTest < Test::Unit::TestCase
   end
   
   def test_should_output_node_names
-    list = Scatter::Commands::Node::List.new(stub)
+    list = Scatter::Commands::Node::List.new(mock(:puts))
     Scatter::Config.stubs(:nodes).returns([mock(:name => 'some_node', :remote => mock(:name => 'some_remote'))])
-    list.expects(:puts)
     list.execute!
   end
 end

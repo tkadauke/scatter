@@ -1,0 +1,18 @@
+--- 
+remotes: 
+  remote:
+    nodes:
+      node1:
+        username: me
+        hostname: some_host
+      node2:
+        username: me
+        hostname: some_host
+      node3:
+        username: me
+        hostname: some_host
+  another_remote:
+    nodes:
+      node4:
+        username: me
+        hostname: some_host

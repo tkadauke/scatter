@@ -17,7 +17,7 @@ module Scatter
           end
 
           nodes.each do |node|
-            puts "#{node.remote.name}/#{node.name}"
+            @out.puts "#{node.remote.name}/#{node.name}"
           end
         end
       end
