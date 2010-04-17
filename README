@@ -3,7 +3,7 @@ Scatter
 
 scatter is a tool to easily distribute rubygems on your machines. Once configured, you can install a gem to an unlimited amount of machines with just one command.
 
-For communication, scatter uses SSH and SCP. It is recommended that you use SSH Keys on every machine that you want to distribute gems to.
+For communication, scatter uses SSH and SCP. It is recommended that you use SSH Keys on every machine that you want to distribute gems to. And since scatter uses sudo to install gems, it is recommended that your user has nopasswd sudo privileges for the gem command on every node, otherwise you'd have to type in lots of passwords.
 
 Installation
 ------------
@@ -40,7 +40,7 @@ To add a node, use
 
 for example
 
-  scatter node add production app01 me@app01.example.com
+  scatter node add production app01 user@app01.example.com
 
 To remove a node, use either of
 
