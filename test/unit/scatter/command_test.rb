@@ -2,7 +2,16 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class Scatter::CommandTest < Test::Unit::TestCase
   class Testcmd < Scatter::Command
-    usage "Short help", "Long help"
+    usage "Short help", <<-end
+      Long help
+      More help
+      
+      Empty line
+      
+        indented line
+      
+      normal indent again
+    end
   end
   
   def test_should_figure_out_command_name
@@ -14,7 +23,11 @@ class Scatter::CommandTest < Test::Unit::TestCase
   end
 
   def test_should_return_long_help
-    assert_equal "Long help", Testcmd.help
+    long_help = Testcmd.help.split("\n")
+    assert_equal "Long help", long_help.first
+    assert_equal "", long_help[2]
+    assert_equal "  indented line", long_help[5]
+    assert_equal "normal indent again", long_help[7]
   end
   
   def test_should_keep_track_of_inherited_classes

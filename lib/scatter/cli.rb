@@ -19,7 +19,7 @@ module Scatter
           end
         end
       when /^-?-?v(ersion)?$/
-        @out.puts "scatter version 0.0.1"
+        @out.puts "scatter version #{Scatter.version}"
       else
         klass = command_class(command_name)
         command = klass.new(@out, *args)
@@ -41,6 +41,8 @@ module Scatter
     end
     
     def commands_help
+      @out.puts "To get help for a command, use: scatter help <command_name>"
+      @out.puts
       hash = Scatter::Command.command_classes.inject({}) do |hash, cmd|
         next hash if cmd.abstract
         command_name = cmd.name.split('::').last.downcase
