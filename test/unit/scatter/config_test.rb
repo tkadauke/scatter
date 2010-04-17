@@ -57,6 +57,12 @@ class Scatter::ConfigTest < Test::Unit::TestCase
     assert_equal node, Scatter::Config.find_node('some_node')
   end
   
+  def test_should_find_node_by_full_name
+    node = stub(:name => 'some_node', :full_name => 'some_remote/some_node')
+    Scatter::Config.instance.expects(:nodes).returns([node])
+    assert_equal node, Scatter::Config.find_node('some_remote/some_node')
+  end
+  
   def test_should_find_destination_by_remote_name
     remote = stub(:name => 'some_remote')
     Scatter::Config.instance.expects(:remotes).returns([remote])

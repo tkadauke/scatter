@@ -7,12 +7,12 @@ remotes:
         hostname: some_host
       node2:
         username: me
-        hostname: some_host
+        hostname: some_host2
       node3:
         username: me
-        hostname: some_host
+        hostname: some_host3
   another_remote:
     nodes:
       node4:
         username: me
-        hostname: some_host
+        hostname: some_host4

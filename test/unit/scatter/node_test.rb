@@ -41,4 +41,9 @@ class Scatter::NodeTest < Test::Unit::TestCase
     node = Scatter::Node.new(stub, 'some_node', 'some_user', 'some_host')
     assert_equal({"username"=>"some_user", "hostname"=>"some_host"}, node.encode_for_config)
   end
+  
+  def test_should_figure_out_full_name
+    node = Scatter::Node.new(stub(:name => 'some_remote'), 'some_node', 'some_user', 'some_host')
+    assert_equal 'some_remote/some_node', node.full_name
+  end
 end

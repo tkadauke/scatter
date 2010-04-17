@@ -56,7 +56,7 @@ module Scatter
     end
     
     def find_node(name)
-      nodes.find { |node| node.name == name }
+      nodes.find { |node| node.name == name || node.full_name == name }
     end
     
     def find_destination(name)

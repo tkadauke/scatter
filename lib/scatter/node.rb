@@ -6,6 +6,10 @@ module Scatter
       @remote, @name, @username, @hostname = remote, name, username, hostname
     end
     
+    def full_name
+      [remote.name, name].join('/')
+    end
+    
     def list
       Scatter::Gemlist.parse(Scatter::Shell.capture("ssh #{@username}@#{@hostname} gem list"))
     end
