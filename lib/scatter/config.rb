@@ -39,7 +39,7 @@ module Scatter
     
     def load!
       @loaded ||= begin
-        @config = YAML.load(File.read(file_name))
+        @config = YAML.load(File.read(file_name)) || {}
         true
       rescue
         raise Scatter::CommandLineError, "Configuration file not found. Run: scatter init"

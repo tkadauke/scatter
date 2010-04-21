@@ -1,3 +1,5 @@
+require 'yaml'
+
 require File.dirname(__FILE__) + '/scatter/cli'
 require File.dirname(__FILE__) + '/scatter/command'
 require File.dirname(__FILE__) + '/scatter/super_command'
